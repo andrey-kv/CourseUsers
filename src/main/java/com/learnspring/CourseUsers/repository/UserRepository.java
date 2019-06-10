@@ -19,5 +19,7 @@ public interface UserRepository extends MongoRepository<User, String>, UserRepos
     @Query("{ 'address.zipCode' : ?0}")
     List<User> findByAddressZipCode(String zipCode);
 
+    void deleteBy_id(ObjectId id);
+    void deleteByLogin(String login);
 }
 

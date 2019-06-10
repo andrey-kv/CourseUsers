@@ -66,6 +66,11 @@ public class ExecService {
         oleh = userRepository.findByLogin("usr01");
         log.info(oleh.getFirstName() + " " + oleh.getLastName());
 
+        User fordel = userRepository.findByLogin("ural");
+        userRepository.deleteBy_id(fordel.get_id());
+
+        userRepository.deleteByLogin("alexpar");
+
         log.info("=====================================================");
     }
 }
