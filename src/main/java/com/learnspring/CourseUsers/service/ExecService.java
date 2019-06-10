@@ -54,9 +54,13 @@ public class ExecService {
             log.info("Found by zipCode");
         }
 
-        userRepository.updateNameByLogin("ural", "Oleh", "Bondar");
+        userRepository.updateNameByLogin("ural", "Oleg", "Bondar");
         User oleh = userRepository.findByLogin("ural");
-        log.info(oleh.getFirstName());
+        log.info(oleh.getFirstName() + " " + oleh.getLastName());
+
+        userRepository.updateNameByLogin("ural", "Oleh");
+        oleh = userRepository.findByLogin("ural");
+        log.info(oleh.getFirstName() + " " + oleh.getLastName());
 
         log.info("=====================================================");
     }
