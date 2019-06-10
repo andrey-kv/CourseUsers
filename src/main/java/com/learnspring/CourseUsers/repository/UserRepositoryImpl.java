@@ -16,7 +16,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public void updateNameByLogin(String login, String newFirstName, String nesSecondName) {
+    public void updateNameByLogin(String login, String newFirstName, String newSecondName) {
         mongoTemplate.updateFirst(Query.query(Criteria.where("login").is(login)),
                         Update.update("firstName", newFirstName), User.class);
     }
