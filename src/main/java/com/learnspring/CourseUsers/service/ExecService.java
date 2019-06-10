@@ -38,6 +38,9 @@ public class ExecService {
         users.add(new User("ural", "afterpaty@gmail.com", "Sergiy", "Uralov"));
         users.add(new User("alexpar", "alexpar@gmail.com", "Oleksiy", "Parmezanenko"));
 
+        firstUser.setLogin("usr01");
+        users.add(firstUser);
+
         User usr = new User("addr", "addr_has@gmail.com", "Mykola", "Lopar");
         Address adr = new Address("Ukraine", "Lviv", "79019");
         usr.setAddress(adr);
@@ -50,16 +53,17 @@ public class ExecService {
             }
         }
 
-        if (userRepository.findByAddressZipCode("79019").size() > 0) {
-            log.info("Found by zipCode");
+        List<User> usl = userRepository.findByAddressZipCode("79019");
+        if (usl.size() > 0) {
+            log.info("Found by zipCode: " + usl.get(0).toString());
         }
 
-        userRepository.updateNameByLogin("ural", "Oleg", "Bondar");
-        User oleh = userRepository.findByLogin("ural");
+        userRepository.updateNameByLogin("usr01", "Oleg", "Bondar");
+        User oleh = userRepository.findByLogin("usr01");
         log.info(oleh.getFirstName() + " " + oleh.getLastName());
 
-        userRepository.updateNameByLogin("ural", "Oleh");
-        oleh = userRepository.findByLogin("ural");
+        userRepository.updateNameByLogin("usr01", "Oleh");
+        oleh = userRepository.findByLogin("usr01");
         log.info(oleh.getFirstName() + " " + oleh.getLastName());
 
         log.info("=====================================================");
