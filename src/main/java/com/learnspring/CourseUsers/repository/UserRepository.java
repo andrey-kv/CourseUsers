@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
+public interface UserRepository extends MongoRepository<User, String>, UserRepositoryCustom {
+
     User findBy_id(ObjectId id);
 
     @Query("{ 'login' : {$regex: ?0, $options: 'i' }}")
@@ -17,5 +18,6 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     @Query("{ 'address.zipCode' : ?0}")
     List<User> findByAddressZipCode(String zipCode);
+
 }
 
