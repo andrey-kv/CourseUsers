@@ -38,9 +38,6 @@ public class ExecService {
         createUsers();
         createCourses();
 
-        List<Course> top2 = courseRepository.getTopCourses(2, Level.MIDDLE);
-        displayList(top2, "Top 2 Middle courses");
-
         userRepository.updateAddressByLogin("tormoz", new Address("Ukraine", "Lviv", "79019"));
         userRepository.updateAddressByLogin("ural", new Address("Ukraine", "Lviv", "79037"));
         userRepository.updateAddressByLogin("Andrii", new Address("Ukraine", "Kyiv", "02028"));
@@ -60,9 +57,6 @@ public class ExecService {
         displayList(seniors, "Seniors: ");
 
         userRepository.approveActiveUsers();
-
-        List<User> lvivs =  userRepository.findUsersByCity("Lviv");
-        displayList(lvivs, "Users from Lviv: ");
 
         showPagination();
 
