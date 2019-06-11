@@ -11,16 +11,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 import java.util.List;
 
-@Document(collection = "courseUser")
+@Document(collection = "users")
 @Data
 @NoArgsConstructor
 public class User {
 
-    public User(String login, String mail, String firstName, String lastName) {
+    public User(String login, String mail, String firstName, String lastName, Status status,
+                JobPosition jobPosition, Level level) {
         this.login = login;
         this.mail = mail;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.status = status;
+        this.jobPosition = jobPosition;
+        this.level = level;
     }
 
     @Id

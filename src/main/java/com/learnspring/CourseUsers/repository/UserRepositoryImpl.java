@@ -1,18 +1,31 @@
 package com.learnspring.CourseUsers.repository;
 
+import com.learnspring.CourseUsers.model.Address;
+import com.learnspring.CourseUsers.model.Level;
+import com.learnspring.CourseUsers.model.Status;
 import com.learnspring.CourseUsers.model.User;
+import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
+import java.util.List;
+
 public class UserRepositoryImpl implements UserRepositoryCustom {
 
     private final MongoTemplate mongoTemplate;
+    private final MongoOperations mongoOperations;
 
-    public UserRepositoryImpl(@Autowired final MongoTemplate mongoTemplate) {
+    public UserRepositoryImpl(@Autowired final MongoTemplate mongoTemplate,
+                              @Autowired final MongoOperations mongoOperations) {
         this.mongoTemplate = mongoTemplate;
+        this.mongoOperations = mongoOperations;
     }
 
     @Override
@@ -30,4 +43,41 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
         mongoTemplate.updateFirst(Query.query(Criteria.where("login").is(login)), update, User.class);
      }
+
+    @Override
+    public List<User> findUsersWhenLevelGreaterThen(Level level) {
+        return mongoTemplate.find(Query.query(Criteria.where("level").gt(level)), User.class);
+    }
+
+    @Override
+    public void updateAddressByLogin(String login, Address address) {
+        mongoTemplate.updateFirst(Query.query(Criteria.where("login").is(login)),
+                Update.update("address", address), User.class);
+    }
+
+    @Override
+    public List<User> findUsersByCity(String city) {
+        return mongoTemplate.find(Query.query(Criteria.where("address.city").is(city)), User.class);
+    }
+
+    @Override
+    public Page<User> getUsersByCity(String city, Pageable pageable) {
+        // Pageable pageable = PageRequest.of(pageNo, itemsOnPage);
+        Query query = new Query().query(Criteria.where("address.city").is(city)).with(pageable);
+
+        List<User> list = mongoOperations.find(query, User.class);
+        long count = mongoOperations.count(query, User.class);
+        Page<User> resultPage = new PageImpl<User>(list , pageable, count);
+        return resultPage;
+    }
+
+    @Override
+    public void approveActiveUsers() {
+        Query query = new Query().query(Criteria.where("status").is(Status.APPROVED));
+        Update update = new Update();
+        update.set("status", Status.ACTIVE);
+        UpdateResult result = mongoTemplate.updateMulti(query, update, User.class);
+    }
+
+
 }
