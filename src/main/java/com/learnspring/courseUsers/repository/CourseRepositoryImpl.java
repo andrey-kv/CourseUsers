@@ -1,7 +1,7 @@
-package com.learnspring.CourseUsers.repository;
+package com.learnspring.courseUsers.repository;
 
-import com.learnspring.CourseUsers.model.Course;
-import com.learnspring.CourseUsers.model.Level;
+import com.learnspring.courseUsers.model.Course;
+import com.learnspring.courseUsers.model.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoOperations;

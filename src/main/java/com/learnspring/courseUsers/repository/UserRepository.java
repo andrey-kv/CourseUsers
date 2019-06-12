@@ -1,9 +1,9 @@
-package com.learnspring.CourseUsers.repository;
+package com.learnspring.courseUsers.repository;
 
-import com.learnspring.CourseUsers.model.JobPosition;
-import com.learnspring.CourseUsers.model.Level;
-import com.learnspring.CourseUsers.model.Status;
-import com.learnspring.CourseUsers.model.User;
+import com.learnspring.courseUsers.model.JobPosition;
+import com.learnspring.courseUsers.model.Level;
+import com.learnspring.courseUsers.model.Status;
+import com.learnspring.courseUsers.model.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -14,7 +14,11 @@ import java.util.List;
 @Repository
 public interface UserRepository extends MongoRepository<User, String>, UserRepositoryCustom {
 
+    String ADDRESS_CITY_LVIV = "Lviv";
+    String ADDRESS_COUNTRY_UKRAINE = "Ukraine";
+
     User findBy_id(ObjectId id);
+    // List<User> findAll();
 
     @Query("{ 'login' : {$regex: ?0, $options: 'i' }}")
     User findByLogin(String login);

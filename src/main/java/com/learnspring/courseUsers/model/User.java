@@ -1,4 +1,4 @@
-package com.learnspring.CourseUsers.model;
+package com.learnspring.courseUsers.model;
 
 import lombok.Data;
 import lombok.Getter;

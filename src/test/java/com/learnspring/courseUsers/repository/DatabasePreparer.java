@@ -1,4 +1,4 @@
-package com.learnspring.CourseUsers.repository;
+package com.learnspring.courseUsers.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.test.context.TestContext;

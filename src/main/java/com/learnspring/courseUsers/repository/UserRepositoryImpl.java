@@ -1,9 +1,9 @@
-package com.learnspring.CourseUsers.repository;
+package com.learnspring.courseUsers.repository;
 
-import com.learnspring.CourseUsers.model.Address;
-import com.learnspring.CourseUsers.model.Level;
-import com.learnspring.CourseUsers.model.Status;
-import com.learnspring.CourseUsers.model.User;
+import com.learnspring.courseUsers.model.Address;
+import com.learnspring.courseUsers.model.Level;
+import com.learnspring.courseUsers.model.Status;
+import com.learnspring.courseUsers.model.User;
 import com.mongodb.client.result.UpdateResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

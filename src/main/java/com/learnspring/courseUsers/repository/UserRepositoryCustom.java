@@ -1,8 +1,8 @@
-package com.learnspring.CourseUsers.repository;
+package com.learnspring.courseUsers.repository;
 
-import com.learnspring.CourseUsers.model.Address;
-import com.learnspring.CourseUsers.model.Level;
-import com.learnspring.CourseUsers.model.User;
+import com.learnspring.courseUsers.model.Address;
+import com.learnspring.courseUsers.model.Level;
+import com.learnspring.courseUsers.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.NoRepositoryBean;

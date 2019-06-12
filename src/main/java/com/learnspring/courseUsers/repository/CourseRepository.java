@@ -1,6 +1,6 @@
-package com.learnspring.CourseUsers.repository;
+package com.learnspring.courseUsers.repository;
 
-import com.learnspring.CourseUsers.model.Course;
+import com.learnspring.courseUsers.model.Course;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

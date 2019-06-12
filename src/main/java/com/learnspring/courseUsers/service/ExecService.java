@@ -1,9 +1,9 @@
-package com.learnspring.CourseUsers.service;
+package com.learnspring.courseUsers.service;
 
-import com.learnspring.CourseUsers.configuration.StartupConfig;
-import com.learnspring.CourseUsers.model.*;
-import com.learnspring.CourseUsers.repository.CourseRepository;
-import com.learnspring.CourseUsers.repository.UserRepository;
+import com.learnspring.courseUsers.configuration.StartupConfig;
+import com.learnspring.courseUsers.model.*;
+import com.learnspring.courseUsers.repository.CourseRepository;
+import com.learnspring.courseUsers.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,8 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

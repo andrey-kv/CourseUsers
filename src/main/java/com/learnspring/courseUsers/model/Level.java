@@ -1,4 +1,4 @@
-package com.learnspring.CourseUsers.model;
+package com.learnspring.courseUsers.model;
 
 public enum Level {
     L0_TRAINEE,

@@ -1,4 +1,4 @@
-package com.learnspring.CourseUsers.model;
+package com.learnspring.courseUsers.model;
 
 public enum CourseType {
     ONLINE,

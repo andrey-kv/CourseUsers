@@ -1,4 +1,4 @@
-package com.learnspring.CourseUsers.configuration;
+package com.learnspring.courseUsers.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -11,7 +11,7 @@ public class StartupConfigTest extends StartupConfig {
 
     @Override
     public void exec() {
-        log.info("========= Execution CourseUsers Application: Profile = Test =========");
+        log.info("========= Execution courseUsers Application: Profile = Test =========");
         clearCollections();
         createCollections();
     }

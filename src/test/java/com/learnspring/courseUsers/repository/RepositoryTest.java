@@ -1,9 +1,9 @@
-package com.learnspring.CourseUsers.repository;
+package com.learnspring.courseUsers.repository;
 
-import com.learnspring.CourseUsers.model.Course;
-import com.learnspring.CourseUsers.model.Level;
-import com.learnspring.CourseUsers.model.Status;
-import com.learnspring.CourseUsers.model.User;
+import com.learnspring.courseUsers.model.Course;
+import com.learnspring.courseUsers.model.Level;
+import com.learnspring.courseUsers.model.Status;
+import com.learnspring.courseUsers.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -60,10 +60,10 @@ public class RepositoryTest {
 
     @Test
     public void findUsersByCity() {
-        List<User> lvivs = userRepository.findUsersByCity("Lviv");
+        List<User> lvivs = userRepository.findUsersByCity(UserRepository.ADDRESS_CITY_LVIV);
         Assert.assertEquals(4, lvivs.size());
         for (User user : lvivs) {
-            Assert.assertEquals("Lviv", user.getAddress().getCity());
+            Assert.assertEquals(UserRepository.ADDRESS_CITY_LVIV, user.getAddress().getCity());
         }
     }
 
@@ -91,7 +91,7 @@ public class RepositoryTest {
     @Test
     public void findByAddress_ZipCode() {
         List<User> code19 = userRepository.findByAddress_ZipCode("79019");
-        // Looks like the same with findByAddressZipCode()
+        // TODO: Looks like the same with findByAddressZipCode()
         Assert.assertEquals(3, code19.size());
         Assert.assertTrue(code19.stream().filter(u -> u.getLogin().equals("tormoz")).findAny().isPresent());
     }
@@ -125,21 +125,22 @@ public class RepositoryTest {
 
     @Test
     public void findSpecialQuery() {
-        List<User> users = userRepository.findSpecialQuery(32, "Lviv");
+
+        List<User> users = userRepository.findSpecialQuery(32, UserRepository.ADDRESS_CITY_LVIV);
         Assert.assertEquals(1, users.size());
         for (User user : users) {
             Assert.assertTrue(user.getDateOfBirth().isBefore(LocalDate.now().minusYears(32)));
-            Assert.assertEquals("Lviv", user.getAddress().getCity());
+            Assert.assertEquals(UserRepository.ADDRESS_CITY_LVIV, user.getAddress().getCity());
         }
     }
 
     @Test
     public void findSpecialBasicQuery() {
-        List<User> users = userRepository.findSpecialBasicQuery(32, "Lviv");
+        List<User> users = userRepository.findSpecialBasicQuery(32, UserRepository.ADDRESS_CITY_LVIV);
         Assert.assertEquals(1, users.size());
         for (User user : users) {
             Assert.assertTrue(user.getDateOfBirth().isBefore(LocalDate.now().minusYears(32)));
-            Assert.assertEquals("Lviv", user.getAddress().getCity());
+            Assert.assertEquals(UserRepository.ADDRESS_CITY_LVIV, user.getAddress().getCity());
         }
     }
 

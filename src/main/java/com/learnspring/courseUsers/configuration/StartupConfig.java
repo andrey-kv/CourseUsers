@@ -1,8 +1,8 @@
-package com.learnspring.CourseUsers.configuration;
+package com.learnspring.courseUsers.configuration;
 
-import com.learnspring.CourseUsers.model.*;
-import com.learnspring.CourseUsers.repository.CourseRepository;
-import com.learnspring.CourseUsers.repository.UserRepository;
+import com.learnspring.courseUsers.model.*;
+import com.learnspring.courseUsers.repository.CourseRepository;
+import com.learnspring.courseUsers.repository.UserRepository;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public abstract class StartupConfig {
 
         User usr = new User("addr", "addr_has@gmail.com",
                 "Mykola", "Lopar", Status.ACTIVE, JobPosition.SOFTWARE_ENGINEER, Level.L1_JUNIOR, LocalDate.parse("1990-05-07"));
-        Address adr = new Address("Ukraine", "Lviv", "79019");
+        Address adr = new Address(UserRepository.ADDRESS_COUNTRY_UKRAINE, UserRepository.ADDRESS_CITY_LVIV, "79019");
         usr.setAddress(adr);
         users.add(usr);
 
@@ -66,10 +66,10 @@ public abstract class StartupConfig {
             }
         }
 
-        userRepository.updateAddressByLogin("tormoz", new Address("Ukraine", "Lviv", "79019"));
-        userRepository.updateAddressByLogin("ural", new Address("Ukraine", "Lviv", "79037"));
-        userRepository.updateAddressByLogin("Andrii", new Address("Ukraine", "Kyiv", "02028"));
-        userRepository.updateAddressByLogin("maksym", new Address("Ukraine", "Lviv", "79019"));
+        userRepository.updateAddressByLogin("tormoz", new Address(UserRepository.ADDRESS_COUNTRY_UKRAINE, UserRepository.ADDRESS_CITY_LVIV, "79019"));
+        userRepository.updateAddressByLogin("ural", new Address(UserRepository.ADDRESS_COUNTRY_UKRAINE, UserRepository.ADDRESS_CITY_LVIV, "79037"));
+        userRepository.updateAddressByLogin("Andrii", new Address(UserRepository.ADDRESS_COUNTRY_UKRAINE, "Kyiv", "02028"));
+        userRepository.updateAddressByLogin("maksym", new Address(UserRepository.ADDRESS_COUNTRY_UKRAINE, UserRepository.ADDRESS_CITY_LVIV, "79019"));
     }
 
     private void createCourses() {

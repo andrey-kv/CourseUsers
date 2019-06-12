@@ -1,8 +1,8 @@
-package com.learnspring.CourseUsers.configuration;
+package com.learnspring.courseUsers.configuration;
 
-import com.learnspring.CourseUsers.model.JobPosition;
-import com.learnspring.CourseUsers.model.Level;
-import com.learnspring.CourseUsers.model.User;
+import com.learnspring.courseUsers.model.JobPosition;
+import com.learnspring.courseUsers.model.Level;
+import com.learnspring.courseUsers.model.User;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
