@@ -18,6 +18,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -93,7 +94,11 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public List<User> findSpecialBasicQuery(int age, String city) {
         LocalDate ageDate = LocalDate.now().minusYears(age);
-        String basicQuery = "{ 'dateOfBirth' : { '$lt' : { '$java' : 1987-06-12 } }, 'address.city' : 'Lviv' }, Fields: { }, Sort: { }" ;
+        String basicQuery = "{ 'dateOfBirth' : { '$lt' : ISODate('" +
+                ageDate.format(DateTimeFormatter.ISO_LOCAL_DATE)
+                + "') }, 'address.city' : '" + city + "' }" ;
+        // basicQuery = "{ 'dateOfBirth' : { '$lt' : { '$java' : '2009-06-12' } }, 'address.city' : 'Lviv' }";
+        // basicQuery = "{ 'dateOfBirth' : { '$lt' : ISODate('2009-06-12') }, 'address.city' : 'Lviv' }";
         BasicQuery query = new BasicQuery(basicQuery);
         return mongoOperations.find(query, User.class);
     }

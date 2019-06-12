@@ -125,4 +125,14 @@ public class RepositoryTest {
         }
     }
 
+    @Test
+    public void findSpecialBasicQuery() {
+        List<User> users = userRepository.findSpecialBasicQuery(32, "Lviv");
+        Assert.assertEquals(1, users.size());
+        for (User user : users) {
+            Assert.assertTrue(user.getDateOfBirth().isBefore(LocalDate.now().minusYears(32)));
+            Assert.assertEquals("Lviv", user.getAddress().getCity());
+        }
+    }
+
 }
