@@ -17,7 +17,7 @@ public class UserConfiguration {
     public User getUser() {
         User user = new User();
         user.setJobPosition(JobPosition.SOFTWARE_ENGINEER);
-        user.setLevel(Level.MIDDLE);
+        user.setLevel(Level.L2_MIDDLE);
         return user;
     }
 }

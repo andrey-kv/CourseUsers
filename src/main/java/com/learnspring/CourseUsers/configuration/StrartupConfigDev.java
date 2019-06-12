@@ -38,13 +38,7 @@ public class StrartupConfigDev extends StartupConfig {
 
         createCollections();
 
-        List<User> seniors = userRepository.findUsersWhenLevelGreaterThen(Level.MIDDLE);
-        displayList(seniors, "Seniors: ");
-
         showPagination();
-
-        List<User> middles = userRepository.getUsersByLevel(Level.MIDDLE);
-        displayList(middles, "Middles: ");
 
         User fordel = userRepository.findByLogin("ural");
         userRepository.deleteBy_id(fordel.get_id());

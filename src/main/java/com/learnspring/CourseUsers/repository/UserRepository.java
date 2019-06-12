@@ -19,8 +19,9 @@ public interface UserRepository extends MongoRepository<User, String>, UserRepos
     @Query("{ 'login' : {$regex: ?0, $options: 'i' }}")
     User findByLogin(String login);
 
-    @Query("{ 'address.zipCode' : ?0}")
+    // @Query("{ 'address.zipCode' : ?0}")
     List<User> findByAddressZipCode(String zipCode);
+    List<User> findByAddress_ZipCode(String zipCode);
 
     List<User> getUsersByJobPosition(JobPosition jobPosition);
     List<User> getUsersByLevel(Level level);
@@ -28,5 +29,8 @@ public interface UserRepository extends MongoRepository<User, String>, UserRepos
 
     void deleteBy_id(ObjectId id);
     void deleteByLogin(String login);
+
+
+
 }
 

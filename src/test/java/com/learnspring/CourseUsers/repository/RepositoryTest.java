@@ -39,7 +39,7 @@ public class RepositoryTest {
 
     @Test
     public void getTopCourses() {
-        List<Course> top2 = courseRepository.getTopCourses(2, Level.MIDDLE);
+        List<Course> top2 = courseRepository.getTopCourses(2, Level.L2_MIDDLE);
         Assert.assertEquals(2, top2.size());
         Assert.assertEquals(4.9, top2.get(0).getRating(), 0);
         Assert.assertEquals(4.7, top2.get(1).getRating(), 0);
@@ -69,8 +69,8 @@ public class RepositoryTest {
 
     @Test
     public void getUsersByLevel() {
-        testByLevel(Level.MIDDLE, 3);
-        testByLevel(Level.SENIOR, 2);
+        testByLevel(Level.L2_MIDDLE, 3);
+        testByLevel(Level.L3_SENIOR, 2);
     }
 
     private void testByLevel(Level level, int count) {
@@ -84,6 +84,14 @@ public class RepositoryTest {
     @Test
     public void findByAddressZipCode() {
         List<User> code19 = userRepository.findByAddressZipCode("79019");
+        Assert.assertEquals(3, code19.size());
+        Assert.assertTrue(code19.stream().filter(u -> u.getLogin().equals("tormoz")).findAny().isPresent());
+    }
+
+    @Test
+    public void findByAddress_ZipCode() {
+        List<User> code19 = userRepository.findByAddress_ZipCode("79019");
+        // Looks like the same with findByAddressZipCode()
         Assert.assertEquals(3, code19.size());
         Assert.assertTrue(code19.stream().filter(u -> u.getLogin().equals("tormoz")).findAny().isPresent());
     }
@@ -132,6 +140,14 @@ public class RepositoryTest {
         for (User user : users) {
             Assert.assertTrue(user.getDateOfBirth().isBefore(LocalDate.now().minusYears(32)));
             Assert.assertEquals("Lviv", user.getAddress().getCity());
+        }
+    }
+
+    @Test
+    public void findUsersWhenLevelGreaterThen() {
+        List<User> users = userRepository.findUsersWhenLevelGreaterThen(Level.L2_MIDDLE);
+        for (User user : users) {
+            Assert.assertEquals(Level.L3_SENIOR, user.getLevel());
         }
     }
 
