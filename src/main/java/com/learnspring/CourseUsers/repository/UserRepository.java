@@ -2,6 +2,7 @@ package com.learnspring.CourseUsers.repository;
 
 import com.learnspring.CourseUsers.model.JobPosition;
 import com.learnspring.CourseUsers.model.Level;
+import com.learnspring.CourseUsers.model.Status;
 import com.learnspring.CourseUsers.model.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -23,6 +24,7 @@ public interface UserRepository extends MongoRepository<User, String>, UserRepos
 
     List<User> getUsersByJobPosition(JobPosition jobPosition);
     List<User> getUsersByLevel(Level level);
+    List<User> getUsersByStatus(Status status);
 
     void deleteBy_id(ObjectId id);
     void deleteByLogin(String login);

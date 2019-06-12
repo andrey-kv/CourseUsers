@@ -21,4 +21,7 @@ public interface UserRepositoryCustom {
     Page<User> getUsersByCity(String city, Pageable pageable);
 
     void approveActiveUsers();
+
+    List<User> findSpecialQuery(int age, String city);
+    List<User> findSpecialBasicQuery(int age, String city);
 }

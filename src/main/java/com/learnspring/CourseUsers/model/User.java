@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Document(collection = "users")
@@ -17,7 +17,7 @@ import java.util.List;
 public class User {
 
     public User(String login, String mail, String firstName, String lastName, Status status,
-                JobPosition jobPosition, Level level) {
+                JobPosition jobPosition, Level level, LocalDate dateOfBirth) {
         this.login = login;
         this.mail = mail;
         this.firstName = firstName;
@@ -25,6 +25,7 @@ public class User {
         this.status = status;
         this.jobPosition = jobPosition;
         this.level = level;
+        this.dateOfBirth = dateOfBirth;
     }
 
     @Id
@@ -38,7 +39,7 @@ public class User {
     private String lastName;
 
     private Address address;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     private List<String> phones;
     private Status status;

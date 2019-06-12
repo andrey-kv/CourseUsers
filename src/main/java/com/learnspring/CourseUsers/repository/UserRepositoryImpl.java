@@ -5,18 +5,22 @@ import com.learnspring.CourseUsers.model.Level;
 import com.learnspring.CourseUsers.model.Status;
 import com.learnspring.CourseUsers.model.User;
 import com.mongodb.client.result.UpdateResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
+import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 public class UserRepositoryImpl implements UserRepositoryCustom {
 
     private final MongoTemplate mongoTemplate;
@@ -73,11 +77,24 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public void approveActiveUsers() {
-        Query query = new Query().query(Criteria.where("status").is(Status.APPROVED));
+        Query query = new Query().query(Criteria.where("status").is(Status.ACTIVE));
         Update update = new Update();
-        update.set("status", Status.ACTIVE);
+        update.set("status", Status.APPROVED);
         UpdateResult result = mongoTemplate.updateMulti(query, update, User.class);
     }
 
+    @Override
+    public List<User> findSpecialQuery(int age, String city) {
+        LocalDate ageDate = LocalDate.now().minusYears(age);
+        Query query = new Query().query(Criteria.where("dateOfBirth").lt(ageDate).and("address.city").is(city));
+        return mongoOperations.find(query, User.class);
+    }
 
+    @Override
+    public List<User> findSpecialBasicQuery(int age, String city) {
+        LocalDate ageDate = LocalDate.now().minusYears(age);
+        String basicQuery = "{ 'dateOfBirth' : { '$lt' : { '$java' : 1987-06-12 } }, 'address.city' : 'Lviv' }, Fields: { }, Sort: { }" ;
+        BasicQuery query = new BasicQuery(basicQuery);
+        return mongoOperations.find(query, User.class);
+    }
 }

@@ -1,47 +1,42 @@
-package com.learnspring.CourseUsers.service;
+package com.learnspring.CourseUsers.configuration;
 
-import com.learnspring.CourseUsers.configuration.StartupConfig;
 import com.learnspring.CourseUsers.model.*;
 import com.learnspring.CourseUsers.repository.CourseRepository;
 import com.learnspring.CourseUsers.repository.UserRepository;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 @Slf4j
-public class ExecService {
+@NoArgsConstructor
+public abstract class StartupConfig {
+
+    protected UserRepository userRepository;
+    protected CourseRepository courseRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public final void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
-    private CourseRepository courseRepository;
+    public final void setCourseRepository(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+    }
 
-    @Autowired
-    @Qualifier("middleDev")
-    private User firstUser;
+    public abstract void exec();
 
-    @Autowired
-    private StartupConfig startupConfig;
-
-    @EventListener(ApplicationReadyEvent.class)
-    private void exec() {
-        startupConfig.exec();
+    protected void createCollections() {
+        createUsers();
+        createCourses();
     }
 
     private void createUsers() {
+
         log.info("Creating Users.");
         log.info("Creating Users.");
         List<User> users = new ArrayList<>();
@@ -70,6 +65,11 @@ public class ExecService {
                 log.info("Save User = " + user.toString());
             }
         }
+
+        userRepository.updateAddressByLogin("tormoz", new Address("Ukraine", "Lviv", "79019"));
+        userRepository.updateAddressByLogin("ural", new Address("Ukraine", "Lviv", "79037"));
+        userRepository.updateAddressByLogin("Andrii", new Address("Ukraine", "Kyiv", "02028"));
+        userRepository.updateAddressByLogin("maksym", new Address("Ukraine", "Lviv", "79019"));
     }
 
     private void createCourses() {
@@ -88,32 +88,6 @@ public class ExecService {
                 log.info("Save Course = " + course.toString());
             }
         }
-
     }
 
-    private void showPagination() {
-
-        log.info("=================== Pagination ======================");
-        Pageable pageable = PageRequest.of(0, 2, Sort.by("login").descending());
-
-        while(true){
-            Page<User> page = userRepository.getUsersByCity("Lviv", pageable);
-            List<User> list = page.getContent();
-            displayList(list, "Page no: "+page.getNumber());
-            if(!page.hasNext()){
-                break;
-            }
-            pageable = page.nextPageable();
-        }
-        log.info("=====================================================");
-    }
-
-    private <T> void displayList(List<T> items, String info) {
-        if (items != null && items.size() > 0) {
-            log.info(info);
-            for (T item : items ) {
-                log.info(item.toString());
-            }
-        }
-    }
 }
