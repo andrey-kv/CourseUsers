@@ -18,7 +18,6 @@ public interface UserRepository extends MongoRepository<User, String>, UserRepos
     String ADDRESS_COUNTRY_UKRAINE = "Ukraine";
 
     User findBy_id(ObjectId id);
-    // List<User> findAll();
 
     @Query("{ 'login' : {$regex: ?0, $options: 'i' }}")
     User findByLogin(String login);
@@ -33,8 +32,5 @@ public interface UserRepository extends MongoRepository<User, String>, UserRepos
 
     void deleteBy_id(ObjectId id);
     void deleteByLogin(String login);
-
-
-
 }
 
