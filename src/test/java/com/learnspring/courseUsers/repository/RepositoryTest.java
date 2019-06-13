@@ -1,9 +1,6 @@
 package com.learnspring.courseUsers.repository;
 
-import com.learnspring.courseUsers.model.Course;
-import com.learnspring.courseUsers.model.Level;
-import com.learnspring.courseUsers.model.Status;
-import com.learnspring.courseUsers.model.User;
+import com.learnspring.courseUsers.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -152,4 +149,17 @@ public class RepositoryTest {
         }
     }
 
+    @Test
+    public void getUsersByJobPosition() {
+        List<User> users = userRepository.getUsersByJobPosition(JobPosition.QA_ENGINEER);
+        Assert.assertEquals(2, users.size());
+        for (User user : users) {
+            Assert.assertEquals(JobPosition.QA_ENGINEER, user.getJobPosition());
+        }
+        users = userRepository.getUsersByJobPosition(JobPosition.SOFTWARE_ENGINEER);
+        Assert.assertEquals(3, users.size());
+        for (User user : users) {
+            Assert.assertEquals(JobPosition.SOFTWARE_ENGINEER, user.getJobPosition());
+        }
+    }
 }
