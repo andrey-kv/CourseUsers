@@ -1,14 +1,14 @@
 package com.learnspring.courseUsers.controller;
 
+import com.learnspring.courseUsers.exception.NoSuchUserException;
 import com.learnspring.courseUsers.model.User;
 import com.learnspring.courseUsers.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,11 +26,32 @@ public class UsersController {
         return result;
     }
 
-    @GetMapping(value = "/{login}")
-    public User findByLogin(@PathVariable("login") String login) {
-        User result = userRepository.findByLogin(login);
-        log.info("Find by login: " + login);
+    @GetMapping(value = "/{id}")
+    public User findUser(@PathVariable("id") String id) {
+        log.info("Find by id: " + id);
+        User result = userRepository.findBy_id(new ObjectId(id));
+        if (result == null) {
+            throw new NoSuchUserException();
+        }
         return result;
+    }
+
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        log.info("Posting user: " + user.toString());
+        return userRepository.save(user);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public User deleteUser(@PathVariable("id") String id) {
+        log.info("Deleting user with id: " + id);
+        User user = userRepository.findBy_id(new ObjectId(id));
+        if (user != null) {
+            userRepository.deleteBy_id(new ObjectId(id));
+            return user;
+        } else {
+            throw new NoSuchUserException();
+        }
     }
 
 }
