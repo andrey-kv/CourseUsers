@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "74e9d81a-374b-4813-b5ba-56f5640687ea",
+		"name": "CourseUsers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get use by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\" : \"wolter\",\r\n    \"mail\" : \"wolter@outlook.com\",\r\n    \"firstName\" : \"Volodymyr\",\r\n    \"lastName\" : \"Shkarupa\",\r\n    \"dateOfBirth\" : \"1979-08-11T22:00:00.000Z\",\r\n    \"status\" : \"ACTIVE\",\r\n    \"jobPosition\" : \"QA_ENGINEER\",\r\n    \"address\" : {\r\n        \"country\" : \"Ukraine\",\r\n        \"city\" : \"Zaporizhia\",\r\n        \"zipCode\" : \"69020\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/wolter",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"wolter"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
