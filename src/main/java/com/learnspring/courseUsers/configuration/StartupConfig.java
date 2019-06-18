@@ -41,20 +41,20 @@ public abstract class StartupConfig {
         log.info("Creating Users.");
         List<User> users = new ArrayList<>();
         users.add(new User("Andrii", "andrii@gmail.com", "Andrii", "Lozhkin",
-                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L2_MIDDLE, LocalDate.parse("1989-02-20")));
+                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L2_MIDDLE, LocalDate.parse("1989-02-20"), "123"));
         users.add(new User("maksym", "maksim@gmail.com", "Maksym", "Vilkin",
-                Status.CREATED, JobPosition.SOFTWARE_ENGINEER, Level.L2_MIDDLE, LocalDate.parse("1990-03-16")));
+                Status.CREATED, JobPosition.SOFTWARE_ENGINEER, Level.L2_MIDDLE, LocalDate.parse("1990-03-16"), "123"));
         users.add(new User("ural", "afterpaty@gmail.com", "Sergiy", "Uralov",
-                Status.CREATED, JobPosition.NETWORK_ENGINEER, Level.L3_SENIOR, LocalDate.parse("1985-04-26")));
+                Status.CREATED, JobPosition.NETWORK_ENGINEER, Level.L3_SENIOR, LocalDate.parse("1985-04-26"), "123"));
         users.add(new User("alexpar", "alexpar@gmail.com", "Oleksiy", "Parmezanenko",
-                Status.APPROVED, JobPosition.SOFTWARE_ENGINEER, Level.L3_SENIOR, LocalDate.parse("1973-07-13")));
+                Status.APPROVED, JobPosition.SOFTWARE_ENGINEER, Level.L3_SENIOR, LocalDate.parse("1973-07-13"), "123"));
         users.add(new User("tormoz", "taranenko@gmail.com", "Vitalii", "Manko",
-                Status.APPROVED, JobPosition.SYSTEMS_ANALYST, Level.L2_MIDDLE, LocalDate.parse("1988-10-10")));
+                Status.APPROVED, JobPosition.SYSTEMS_ANALYST, Level.L2_MIDDLE, LocalDate.parse("1988-10-10"), "123"));
         users.add(new User("usr01", "a.usr01@gmail.com", "Taras", "Andrienko",
-                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L0_TRAINEE, LocalDate.parse("1990-03-03")));
+                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L0_TRAINEE, LocalDate.parse("1990-03-03"), "123"));
 
-        User usr = new User("addr", "addr_has@gmail.com",
-                "Mykola", "Lopar", Status.ACTIVE, JobPosition.SOFTWARE_ENGINEER, Level.L1_JUNIOR, LocalDate.parse("1990-05-07"));
+        User usr = new User("addr", "addr_has@gmail.com","Mykola", "Lopar",
+                Status.ACTIVE, JobPosition.SOFTWARE_ENGINEER, Level.L1_JUNIOR, LocalDate.parse("1990-05-07"), "123");
         Address adr = new Address(UserRepository.ADDRESS_COUNTRY_UKRAINE, UserRepository.ADDRESS_CITY_LVIV, "79019");
         usr.setAddress(adr);
         users.add(usr);
