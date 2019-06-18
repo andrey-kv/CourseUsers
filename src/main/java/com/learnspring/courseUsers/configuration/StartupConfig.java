@@ -6,6 +6,7 @@ import com.learnspring.courseUsers.repository.UserRepository;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public abstract class StartupConfig {
 
     protected UserRepository userRepository;
     protected CourseRepository courseRepository;
+    protected BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public final void setUserRepository(UserRepository userRepository) {
@@ -26,6 +28,11 @@ public abstract class StartupConfig {
     @Autowired
     public final void setCourseRepository(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
+    }
+
+    @Autowired
+    public final void setPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public abstract void exec();
@@ -38,23 +45,26 @@ public abstract class StartupConfig {
     private void createUsers() {
 
         log.info("Creating Users.");
-        log.info("Creating Users.");
+
+        String encPassword1 = bCryptPasswordEncoder.encode("123");
+        String encPassword2 = bCryptPasswordEncoder.encode("111");
+
         List<User> users = new ArrayList<>();
         users.add(new User("Andrii", "andrii@gmail.com", "Andrii", "Lozhkin",
-                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L2_MIDDLE, LocalDate.parse("1989-02-20"), "123"));
+                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L2_MIDDLE, LocalDate.parse("1989-02-20"), encPassword1));
         users.add(new User("maksym", "maksim@gmail.com", "Maksym", "Vilkin",
-                Status.CREATED, JobPosition.SOFTWARE_ENGINEER, Level.L2_MIDDLE, LocalDate.parse("1990-03-16"), "123"));
+                Status.CREATED, JobPosition.SOFTWARE_ENGINEER, Level.L2_MIDDLE, LocalDate.parse("1990-03-16"), encPassword1));
         users.add(new User("ural", "afterpaty@gmail.com", "Sergiy", "Uralov",
-                Status.CREATED, JobPosition.NETWORK_ENGINEER, Level.L3_SENIOR, LocalDate.parse("1985-04-26"), "123"));
+                Status.CREATED, JobPosition.NETWORK_ENGINEER, Level.L3_SENIOR, LocalDate.parse("1985-04-26"), encPassword1));
         users.add(new User("alexpar", "alexpar@gmail.com", "Oleksiy", "Parmezanenko",
-                Status.APPROVED, JobPosition.SOFTWARE_ENGINEER, Level.L3_SENIOR, LocalDate.parse("1973-07-13"), "123"));
+                Status.APPROVED, JobPosition.SOFTWARE_ENGINEER, Level.L3_SENIOR, LocalDate.parse("1973-07-13"), encPassword2));
         users.add(new User("tormoz", "taranenko@gmail.com", "Vitalii", "Manko",
-                Status.APPROVED, JobPosition.SYSTEMS_ANALYST, Level.L2_MIDDLE, LocalDate.parse("1988-10-10"), "123"));
+                Status.APPROVED, JobPosition.SYSTEMS_ANALYST, Level.L2_MIDDLE, LocalDate.parse("1988-10-10"), encPassword2));
         users.add(new User("usr01", "a.usr01@gmail.com", "Taras", "Andrienko",
-                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L0_TRAINEE, LocalDate.parse("1990-03-03"), "123"));
+                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L0_TRAINEE, LocalDate.parse("1990-03-03"), encPassword2));
 
         User usr = new User("addr", "addr_has@gmail.com","Mykola", "Lopar",
-                Status.ACTIVE, JobPosition.SOFTWARE_ENGINEER, Level.L1_JUNIOR, LocalDate.parse("1990-05-07"), "123");
+                Status.ACTIVE, JobPosition.SOFTWARE_ENGINEER, Level.L1_JUNIOR, LocalDate.parse("1990-05-07"), encPassword2);
         Address adr = new Address(UserRepository.ADDRESS_COUNTRY_UKRAINE, UserRepository.ADDRESS_CITY_LVIV, "79019");
         usr.setAddress(adr);
         users.add(usr);

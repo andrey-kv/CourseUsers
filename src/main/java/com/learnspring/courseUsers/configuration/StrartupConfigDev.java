@@ -61,7 +61,6 @@ public class StrartupConfigDev extends StartupConfig {
             }
             pageable = page.nextPageable();
         }
-        log.info("=====================================================");
     }
 
     private <T> void displayList(List<T> items, String info) {

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,9 +19,6 @@ import java.util.List;
 @NoArgsConstructor
 public class User {
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     public User(String login, String mail, String firstName, String lastName, Status status,
                 JobPosition jobPosition, Level level, LocalDate dateOfBirth, String password) {
         this.login = login;
@@ -31,7 +29,7 @@ public class User {
         this.jobPosition = jobPosition;
         this.level = level;
         this.dateOfBirth = dateOfBirth;
-        this.password = bCryptPasswordEncoder.encode(password);
+        this.password = password;
     }
 
     @Id
