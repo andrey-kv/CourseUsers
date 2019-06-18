@@ -30,9 +30,11 @@ public class MongoUserDetailsService implements UserDetailsService {
             throw new NoSuchUserException();
         }
 
-
         List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("user"));
+        UserDetails details = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
 
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
+        log.info("logged, details = " + details.toString());
+
+        return details;
     }
 }
