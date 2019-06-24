@@ -8,6 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -162,4 +166,19 @@ public class RepositoryTest {
             Assert.assertEquals(JobPosition.SOFTWARE_ENGINEER, user.getJobPosition());
         }
     }
+
+//    @Test
+//    public void showPagination() {
+//        Pageable pageable = PageRequest.of(0, 2, Sort.by("login").descending());
+//
+//        while (true) {
+//            Page<User> page = userRepository.getUsersByCity("Lviv", pageable);
+//            List<User> list = page.getContent();
+//            displayList(list, "Page no: " + page.getNumber());
+//            if (!page.hasNext()) {
+//                break;
+//            }
+//            pageable = page.nextPageable();
+//        }
+//    }
 }
