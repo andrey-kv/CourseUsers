@@ -1,19 +1,19 @@
 package com.learnspring.courseUsers.service;
 
 import com.learnspring.courseUsers.exception.NoSuchUserException;
+import com.learnspring.courseUsers.model.LoginUserRequest;
+import com.learnspring.courseUsers.model.Role;
 import com.learnspring.courseUsers.model.User;
 import com.learnspring.courseUsers.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.List;
 
-@Component
+@Service
 @Slf4j
 public class MongoUserDetailsService implements UserDetailsService {
 
@@ -24,17 +24,21 @@ public class MongoUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws NoSuchUserException {
 
         log.info("loadUserByUsername, login = " + login);
+
         User user = repository.findByLogin(login);
 
         if(user == null) {
             throw new NoSuchUserException();
         }
 
-        List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("user"));
-        UserDetails details = new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
+        LoginUserRequest userRequest = LoginUserRequest.builder()
+                .username(user.getLogin())
+                .password(user.getPassword())
+                .authorities(Arrays.asList(Role.USER))
+                .build();
 
-        log.info("logged, details = " + details.toString());
+        log.info("logged, details = " + userRequest.toString());
 
-        return details;
+        return userRequest;
     }
 }

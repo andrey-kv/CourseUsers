@@ -28,5 +28,4 @@ public class AppController {
         session.setAttribute("SPRING_SECURITY_CONTEXT", sc);
         return ResponseEntity.ok("OK");
     }
-
 }
