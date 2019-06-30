@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 @Service
 @Slf4j
-public class MongoUserDetailsService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository repository;
