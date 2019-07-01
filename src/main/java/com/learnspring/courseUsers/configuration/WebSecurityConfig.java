@@ -1,14 +1,16 @@
 package com.learnspring.courseUsers.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.learnspring.courseUsers.service.MongoUserDetailsService;
+import com.learnspring.courseUsers.service.UserDetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Slf4j
@@ -16,7 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MongoUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -29,7 +31,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         log.info("Configure security.");
-        http
+
+        http.csrf().disable().authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/login","/register").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+
+/*        http
             .authorizeRequests()
             .antMatchers("/", "/courses").permitAll()
             .anyRequest().authenticated()
@@ -46,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logout();
 //                    .logoutUrl("/logout")
 //                    .logoutSuccessHandler(this::logoutSuccessHandler)
-//                    .invalidateHttpSession(true);
+//                    .invalidateHttpSession(true);*/
 
     }
 
