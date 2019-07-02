@@ -167,18 +167,34 @@ public class RepositoryTest {
         }
     }
 
-//    @Test
-//    public void showPagination() {
-//        Pageable pageable = PageRequest.of(0, 2, Sort.by("login").descending());
-//
-//        while (true) {
-//            Page<User> page = userRepository.getUsersByCity("Lviv", pageable);
-//            List<User> list = page.getContent();
-//            displayList(list, "Page no: " + page.getNumber());
-//            if (!page.hasNext()) {
-//                break;
-//            }
-//            pageable = page.nextPageable();
-//        }
-//    }
+    @Test
+    public void showPagination() {
+
+        Pageable pageable = PageRequest.of(0, 2, Sort.by("login").descending());
+
+        int counter = 0;
+
+        while (true) {
+            Page<User> page = userRepository.getUsersByCity(UserRepository.ADDRESS_CITY_LVIV, pageable);
+            List<User> pageContent = page.getContent();
+            int pageNumber = page.getNumber();
+            Assert.assertEquals(counter, pageNumber);
+            Assert.assertEquals(2, pageContent.size());
+            if (!page.hasNext()) {
+                break;
+            }
+            pageable = page.nextPageable();
+            counter++;
+        }
+    }
+
+    @Test
+    public void delete() {
+
+        User user = new User("deluser", "deluser@gmail.com", "Anton", "Khodz",
+                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L0_TRAINEE, LocalDate.parse("1990-03-03"), "password");
+
+        userRepository.save(user);
+
+    }
 }
