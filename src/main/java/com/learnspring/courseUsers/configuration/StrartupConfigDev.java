@@ -36,13 +36,6 @@ public class StrartupConfigDev extends StartupConfig {
         log.info("========= Execution courseUsers Application: Profile = Dev =========");
 
         createCollections();
-
-        User fordel = userRepository.findByLogin("ural");
-        userRepository.deleteBy_id(fordel.get_id());
-
-        userRepository.deleteByLogin("alexpar");
-
-        log.info("=====================================================");
     }
 
 }

@@ -2,6 +2,7 @@ package com.learnspring.courseUsers.repository;
 
 import com.learnspring.courseUsers.model.*;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +28,8 @@ import java.util.List;
 @ContextConfiguration
 @Slf4j
 public class RepositoryTest {
+
+    public static final String TEMPORARY_LOGIN = "deluser";
 
     @Autowired
     @Qualifier("userRepository")
@@ -189,12 +192,29 @@ public class RepositoryTest {
     }
 
     @Test
-    public void delete() {
+    public void deleteById() {
 
-        User user = new User("deluser", "deluser@gmail.com", "Anton", "Khodz",
+        User user = new User(TEMPORARY_LOGIN, "deluser@gmail.com", "Anton", "Khodz",
                 Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L0_TRAINEE, LocalDate.parse("1990-03-03"), "password");
 
         userRepository.save(user);
+        ObjectId id =  userRepository.findByLogin(TEMPORARY_LOGIN).get_id();
+        Assert.assertNotNull(id);
+        userRepository.deleteBy_id(id);
+        Assert.assertNull(userRepository.findByLogin(TEMPORARY_LOGIN));
 
     }
+
+    @Test
+    public void deleteByLogin() {
+
+        User user = new User(TEMPORARY_LOGIN, "deluser@gmail.com", "Anton", "Khodz",
+                Status.ACTIVE, JobPosition.QA_ENGINEER, Level.L0_TRAINEE, LocalDate.parse("1990-03-03"), "password");
+
+        userRepository.save(user);
+        Assert.assertNotNull(userRepository.findByLogin(TEMPORARY_LOGIN));
+        userRepository.deleteByLogin(TEMPORARY_LOGIN);
+        Assert.assertNull(userRepository.findByLogin(TEMPORARY_LOGIN));
+    }
+
 }
