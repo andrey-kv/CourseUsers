@@ -36,40 +36,6 @@ public class StrartupConfigDev extends StartupConfig {
         log.info("========= Execution courseUsers Application: Profile = Dev =========");
 
         createCollections();
-
-        showPagination();
-
-        User fordel = userRepository.findByLogin("ural");
-        userRepository.deleteBy_id(fordel.get_id());
-
-        userRepository.deleteByLogin("alexpar");
-
-        log.info("=====================================================");
-    }
-
-    private void showPagination() {
-
-        log.info("=================== Pagination ======================");
-        Pageable pageable = PageRequest.of(0, 2, Sort.by("login").descending());
-
-        while (true) {
-            Page<User> page = userRepository.getUsersByCity("Lviv", pageable);
-            List<User> list = page.getContent();
-            displayList(list, "Page no: " + page.getNumber());
-            if (!page.hasNext()) {
-                break;
-            }
-            pageable = page.nextPageable();
-        }
-    }
-
-    private <T> void displayList(List<T> items, String info) {
-        if (items != null && items.size() > 0) {
-            log.info(info);
-            for (T item : items) {
-                log.info(item.toString());
-            }
-        }
     }
 
 }

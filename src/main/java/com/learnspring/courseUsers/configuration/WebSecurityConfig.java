@@ -1,7 +1,6 @@
 package com.learnspring.courseUsers.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.learnspring.courseUsers.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +24,11 @@ import java.io.IOException;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
+    private final UserDetailsService userService;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public WebSecurityConfig(UserService userService, ObjectMapper objectMapper) {
+    public WebSecurityConfig(UserDetailsService userService, ObjectMapper objectMapper) {
         this.userService = userService;
         this.objectMapper = objectMapper;
     }

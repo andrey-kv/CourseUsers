@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 @Service
 @Slf4j
-public class UserService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository repository;
