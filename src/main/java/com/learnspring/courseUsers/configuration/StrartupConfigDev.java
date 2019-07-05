@@ -20,16 +20,6 @@ import java.util.List;
 @Slf4j
 public class StrartupConfigDev extends StartupConfig {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private CourseRepository courseRepository;
-
-    @Autowired
-    @Qualifier("middleDev")
-    private User firstUser;
-
     @Override
     public void exec() {
 
