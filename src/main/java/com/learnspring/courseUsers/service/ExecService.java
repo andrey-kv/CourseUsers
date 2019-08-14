@@ -28,10 +28,6 @@ public class ExecService {
     private CourseRepository courseRepository;
 
     @Autowired
-    @Qualifier("middleDev")
-    private User firstUser;
-
-    @Autowired
     private StartupConfig startupConfig;
 
     @EventListener(ApplicationReadyEvent.class)
